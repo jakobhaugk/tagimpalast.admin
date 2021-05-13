@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-if="loggedIn">logged in</div>
+    <login @success="loggedIn = true" v-else />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Login from './pages/Login.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Login
+  },
+  head: {
+    link: [
+      {
+        rel: "stylesheet",
+        href: "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css",
+      },
+    ],
   }
 }
 </script>
