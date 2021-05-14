@@ -2,11 +2,9 @@
   <div>
     <text-editor-buttons :editor="editor" />
 
-    <span>
     <editor-content :editor="editor" />
-    </span>
 
-    <div class="export">
+    <div class="export" v-if="showHtml">
       <h3>HTML</h3>
       <pre><code>{{ html }}</code></pre>
     </div>
@@ -28,12 +26,14 @@ export default {
     EditorContent,
     TextEditorButtons,
   },
+  props: {
+    showHtml: { type: Boolean, default: false },
+    value: { type: String, default: '' },
+    id: String
+  },
   data() {
     return {
       editor: null,
-      view: "editor",
-      content: "<p>Moin</p>",
-      html: '',
     };
   },
 
@@ -42,19 +42,17 @@ export default {
       extensions: [StarterKit, Document, Paragraph, Text, Heading],
       autofocus: true,
       editable: true,
-      content: '<p>Moin</p>'
+      content: this.value,
     });
-    this.html = this.editor.getHTML();
-
     this.editor.on('update', () => {
-      this.html = this.editor.getHTML();
+      this.$emit('input', this.editor.getHTML())
     })
+    this.editor.commands.setContent(this.value)
   },
 
-  methods: {
-    showHtml() {
-      this.content;
-    },
+  updated() {
+    
+      this.editor.commands.setContent(this.value, true)
   },
 
   beforeDestroy() {
@@ -64,4 +62,13 @@ export default {
 </script>
 
 <style>
+.ProseMirror {
+  border-radius: 4px;
+  color: #363636;
+  display: block;
+  max-width: 100%;
+  min-width: 100%;
+  padding: calc(.75em - 1px);
+  border: 1px solid;
+}
 </style>

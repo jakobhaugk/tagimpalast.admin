@@ -1,11 +1,26 @@
 <template>
   <div class="container">
     <div class="box">
-    <h1 class="title">Anmelden</h1>
-    <input v-model="username" placeholder="Benutzername" /><br>
-    <input v-model="password" type="password" placeholder="Passwort" /><br>
-    <span v-if="error">{{ error }}</span><br>
-    <button @click="login">Anmelden</button>
+
+      <div class="field">
+          <div class="control">
+            <input class="input" v-model="username" placeholder="Benutzername">
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="input" v-model="password" type="password" placeholder="Passwort">
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button @click="login" class="button is-link">Anmelden</button>
+          </div>
+        </div>
+        <div v-if="error" class="notification is-danger is-light">
+          {{ error }}
+        </div>
+
     </div>
   </div>
 </template>
@@ -22,12 +37,11 @@ export default {
   }),
   methods: {
     async login() {
-      
       const { username, password } = this;
       const { data: { accessToken } } = await http.post('/login', { user: { username, password }});
       if (accessToken) {
         localStorage.setItem('user-token', accessToken)
-        this.$router.push('/')
+        this.$emit('success')
       }
       else
         this.error = 'Benutzername oder Passwort ungültig'

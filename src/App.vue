@@ -1,18 +1,38 @@
 <template>
-  <div id="app">
-    <div v-if="loggedIn">logged in</div>
-    <login @success="loggedIn = true" v-else />
+  <div id="app" class="container is-fullhd">
+    <div v-if="ready" style="height: 100%">
+      <div v-if="loggedIn" class="flex-container">
+        <div class="sidebar">
+          <sidebar ref="sidebar"></sidebar>
+        </div>
+        <div class="content">
+          <router-view :key="$route.path" @reload="handleReload"></router-view>
+        </div>
+      </div>
+      <div v-else>
+        <login @success="loggedIn = true"></login>
+      </div>
+    </div>
+    <div v-else>
+      Loading...
+    </div>
   </div>
 </template>
 
 <script>
-import Login from './pages/Login.vue'
+import http from "./util/http";
+import Sidebar from "./components/Sidebar";
+import Login from "./pages/Login";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Login
+    Sidebar, Login
   },
+  data: () => ({
+    ready: false,
+    loggedIn: false
+  }),
   head: {
     link: [
       {
@@ -20,17 +40,50 @@ export default {
         href: "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css",
       },
     ],
+  },
+  async mounted() {
+    
+    try {
+      const { data: { data }} = await http.get('/api/user')
+      this.loggedIn = (data === true);
+    } catch (e) {
+      this.loggedIn = false
+    }
+
+    this.ready = true;
+
+  },
+  methods: {
+    handleReload() {
+      console.log('reload')
+      this.$refs.sidebar.init()
+    }
   }
-}
+};
 </script>
 
 <style>
+body {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+.flex-container {
+  height: 100%;
+  display: flex;
+}
+.sidebar {
+  min-width: 240px;
+  height: 100%;
+  background-color: #e4e4e4;
+  box-shadow: #bdbdbd 0px 0px 15px;
+  overflow: hidden;
+}
+.content {
+  flex: 1;
+  overflow: auto;
 }
 </style>

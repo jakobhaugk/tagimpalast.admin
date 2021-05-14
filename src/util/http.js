@@ -13,7 +13,10 @@ http.interceptors.request.use(
     
     return config;
   },
-  error => Promise.reject(error)
+  error => {
+    console.log(error)
+    return { error }
+  }
 )
 
 export default http;
