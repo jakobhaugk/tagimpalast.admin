@@ -29,7 +29,6 @@ export default {
   props: {
     showHtml: { type: Boolean, default: false },
     value: { type: String, default: '' },
-    id: String
   },
   data() {
     return {

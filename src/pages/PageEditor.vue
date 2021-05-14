@@ -4,12 +4,12 @@
       <h1 class="title is-4">Seite bearbeiten</h1>
       <div>
         <button @click="deletePage" class="button mr-2 is-danger is-outlined">
-          <span v-if="!deleteStatus">Löschen</span>
+          <span v-if="!deleteStatus">Seite löschen</span>
           <span v-else>{{
             deleteStatus === "success" ? "Gelöscht" : "Fehlgeschlagen"
           }}</span>
         </button>
-        <button @click="updatePage" class="button is-link is-outlined">
+        <button @click="updatePage" class="button is-outlined is-link">
           <span v-if="!saveStatus">Speichern</span>
           <span v-else>{{
             saveStatus === "success" ? "Gespeichert" : "Fehlgeschlagen"
@@ -24,26 +24,36 @@
         <div class="box">
           <h6 class="title is-6">Allgemeine Einstellungen</h6>
           <custom-input :label="'Titel im Menü'" v-model="page.menuLabel" />
-          <custom-select
-            :label="'Seitentyp'"
-            :options="['article', 'index-page']"
-            v-model="page.componentType"
-          />
+          
           <custom-select
             label="Hintergrundfarbe"
-            :options="['red', 'yellow', 'green', 'white', 'black']"
+            :options="availableColors"
             v-model="page.backgroundColor"
           />
         </div>
 
-        <div class="box">
-          <h6 class="title is-6">Inhalt der Seite</h6>
+        <div v-for="component, idx in page.components" :key="idx" class="box">
+          <div style="display: flex" class="is-justify-content-space-between">
+            <h6 class="title is-6">{{ component.type }}</h6>
+            <button @click="page.components.splice(idx, 1)" class="button is-small is-danger is-outlined">
+              Abschnitt löschen
+            </button>
+          </div>
+          <custom-select
+            :label="'Abschnittstyp'"
+            :options="availableComponents"
+            v-model="component.type"
+          />
           <component
-            :is="`content-${page.componentType}`"
+            :is="`content-${component.type}-page`"
             :id="slug"
-            v-model="page.componentData"
+            v-model="component.data"
           ></component>
         </div>
+
+        <button @click="page.components.push({ type: 'article', data: {}})" class="button is-outlined is-link">
+          + Neuen Abschnitt hinzufügen
+        </button>
       </div>
     </div>
     <div v-else>Loading...</div>
@@ -54,20 +64,25 @@
 import CustomSelect from "../components/form/CustomSelect.vue";
 import CustomInput from "../components/form/CustomInput";
 
-import ContentArticle from "../components/content/ContentArticle";
+import ContentArticlePage from "../components/content/ContentArticlePage";
+import ContentIndexPage from "../components/content/ContentIndexPage";
+import ContentSponsorsPage from "../components/content/ContentSponsorsPage";
 
 import globals from '../const'
 
 import http from "../util/http";
 export default {
-  components: { CustomSelect, CustomInput, ContentArticle },
+  components: { CustomSelect, CustomInput, ContentArticlePage, ContentIndexPage, ContentSponsorsPage },
   name: "PageEditor",
   data: () => ({
     ready: false,
     error: false,
-    page: { type: Object, default: () => ({}) },
+    page: { type: Object, default: () => globals.emptyPage },
     saveStatus: null,
     deleteStatus: null,
+    availableComponents: globals.availableComponents,
+    availableColors: globals.availableColors,
+    emptyComponent: globals.emptyComponent
   }),
   props: {
     slug: String,
@@ -90,12 +105,15 @@ export default {
     },
     async updatePage() {
 
+      if (!this.page.menuLabel) return;
+
       let res;
       const body = { page: this.page };
 
       if (this.slug === "new") {
         res = await http.put('/api/page', body)
         this.$emit('reload')
+        this.$router.push('/')
       }
 
       else 
@@ -112,6 +130,8 @@ export default {
       const res = await http.delete(`/api/page/${this.slug}`);
       const { data: { status }} = res;
       this.deleteStatus = status;
+      this.$emit('reload')
+      this.$router.push('/')
       setTimeout(() => {
         this.deleteStatus = null;
       }, 2000);
