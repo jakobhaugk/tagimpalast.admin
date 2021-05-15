@@ -1,6 +1,7 @@
 <template>
 <div>
   <custom-input label="Überschrift" v-model="value.heading"></custom-input>
+  <custom-input label="Beschreibung" v-model="value.description"></custom-input>
   <div v-for="sponsor, idx in value.sponsors" :key="idx" class="box sponsor-item">
     <button @click="removeSponsor(idx)" class="button is-small is-danger is-outlined remove-btn">Förderer löschen</button><br>
     <custom-input label="Name" v-model="sponsor.name" />
