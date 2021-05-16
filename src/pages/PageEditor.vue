@@ -23,6 +23,10 @@
       <div v-else>
         <div class="box">
           <h6 class="title is-6">Allgemeine Einstellungen</h6>
+          <label class="checkbox">
+              <input type="checkbox" v-model="page.public" value="true">
+              Öffentlich
+            </label>
           <custom-input :label="'Titel im Menü'" v-model="page.menuLabel" />
           
           <custom-select
@@ -35,6 +39,10 @@
         <div v-for="component, idx in page.components" :key="idx" class="box">
           <div style="display: flex" class="is-justify-content-space-between">
             <h6 class="title is-6">{{ component.type }}</h6>
+            <label class="checkbox">
+              <input type="checkbox" v-model="component.public">
+              Öffentlich
+            </label>
             <button @click="page.components.splice(idx, 1)" class="button is-small is-danger is-outlined">
               Abschnitt löschen
             </button>
@@ -51,7 +59,7 @@
           ></component>
         </div>
 
-        <button @click="page.components.push({ type: 'article', data: {}})" class="button is-outlined is-link">
+        <button @click="page.components.push(emptyComponent)" class="button is-outlined is-link">
           + Neuen Abschnitt hinzufügen
         </button>
       </div>

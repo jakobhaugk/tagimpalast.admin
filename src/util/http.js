@@ -2,6 +2,9 @@ import axios from 'axios'
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_API_ENDPOINT,
+  headers: {
+    'Preview': 1
+  }
 })
 
 http.interceptors.request.use(
