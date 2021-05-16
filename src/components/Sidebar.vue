@@ -1,6 +1,6 @@
 <template>
-  <div class="section">
-    <div v-if="ready">
+  <div class="section" style="height: 100%">
+    <div v-if="ready" style="height: 100%; position: relative">
       <h1 class="title is-3">Seiten</h1>
       <router-link class="nav-item mb-3"
         v-for="(page, idx) in pages"
@@ -12,6 +12,9 @@
       <router-link class="nav-item mt-5" to="/new">
         + Neue Seite hinzufügen
       </router-link>
+      <a :href="previewURL" target="_blank" class="preview-btn button is-info is-outlined">
+        Vorschau
+      </a>
     </div>
     <div v-else>Loading...</div>
   </div>
@@ -24,6 +27,7 @@ export default {
   data: () => ({
     ready: false,
     pages: [],
+    previewURL: process.env.VUE_APP_PREVIEW_URL,
   }),
   methods: {
     async init() {
@@ -44,5 +48,10 @@ export default {
 <style>
 .nav-item {
   display: block;
+}
+.preview-btn {
+  position: absolute !important;
+  left: 0;
+  bottom: 0;
 }
 </style>
