@@ -91,7 +91,6 @@ export default {
     availableComponents: globals.availableComponents,
     availableColors: globals.availableColors,
     emptyComponent: globals.emptyComponent,
-    emptyPage: globals.emptyPage,
   }),
   props: {
     slug: String,
@@ -99,17 +98,13 @@ export default {
   methods: {
     async getPage() {
       this.ready = false;
-      this.page = { ...this.emptyPage };
 
-      if (this.slug !== "new") {
-
-        const { data: { data }} = await http.get(`/api/page/${this.slug}`);
-        if (!data) {
-          this.error = true;
-          return;
-        }
-        this.page = data;
+      const { data: { data }} = await http.get(`/api/page/${this.slug}`);
+      if (!data) {
+        this.error = true;
+        return;
       }
+      this.page = data;
 
       this.ready = true;
     },
