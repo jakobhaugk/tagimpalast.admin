@@ -12,7 +12,7 @@
       <router-link class="nav-item mt-5" to="/new">
         + Neue Seite hinzufügen
       </router-link>
-      <a :href="previewURL" target="_blank" class="preview-btn button is-info is-outlined">
+      <a :href="previewURL" target="_blank" class="preview-btn button is-link is-outlined">
         Vorschau
       </a>
     </div>
