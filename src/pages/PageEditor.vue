@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div v-if="ready">
+    <div v-if="ready" :key="slug">
       <span v-if="error">Irgendetwas ist schiefgelaufen</span>
       <div v-else>
         <div class="box">
@@ -90,14 +90,16 @@ export default {
     deleteStatus: null,
     availableComponents: globals.availableComponents,
     availableColors: globals.availableColors,
-    emptyComponent: globals.emptyComponent
+    emptyComponent: globals.emptyComponent,
+    emptyPage: globals.emptyPage,
   }),
   props: {
     slug: String,
   },
   methods: {
     async getPage() {
-      this.page = globals.emptyPage;
+      this.ready = false;
+      this.page = { ...this.emptyPage };
 
       if (this.slug !== "new") {
 
