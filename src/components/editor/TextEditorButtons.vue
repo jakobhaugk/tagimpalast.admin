@@ -19,6 +19,12 @@
       h3
     </button>
     <button
+      @click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
+      :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
+    >
+      h4
+    </button>
+    <button
       @click="editor.chain().focus().setParagraph().run()"
       :class="{ 'is-active': editor.isActive('paragraph') }"
     >
@@ -36,36 +42,16 @@
     >
       italic
     </button>
+    <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'is-active': editor.isActive('underline') }">
+      underline
+    </button>
     <button
       @click="editor.chain().focus().toggleStrike().run()"
       :class="{ 'is-active': editor.isActive('strike') }"
     >
       strike
     </button>
-    <button
-      @click="editor.chain().focus().setTextAlign('left').run()"
-      :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
-    >
-      left
-    </button>
-    <button
-      @click="editor.chain().focus().setTextAlign('center').run()"
-      :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
-    >
-      center
-    </button>
-    <button
-      @click="editor.chain().focus().setTextAlign('right').run()"
-      :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
-    >
-      right
-    </button>
-    <button
-      @click="editor.chain().focus().setTextAlign('justify').run()"
-      :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }"
-    >
-      justify
-    </button>
+  
   </div>
 </template>
 

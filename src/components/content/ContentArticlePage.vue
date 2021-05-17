@@ -16,8 +16,8 @@ export default {
     id: String,
   },
   watch: {
-    data: function() {
-      this.$emit('input', data)
+    value: function() {
+      this.$emit('input', this.value)
     }
   }
 }

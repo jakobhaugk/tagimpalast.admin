@@ -8,6 +8,8 @@ Vue.config.productionTip = false
 Vue.use(VueHead)
 Vue.use(VueRouter)
 
+Vue.prototype.$host = process.env.VUE_APP_API_ENDPOINT
+
 import PageEditor from './pages/PageEditor'
 import Index from './pages/Index'
 

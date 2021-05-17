@@ -16,7 +16,8 @@ globals.emptyComponent = {
 globals.availableComponents = [
   'article',
   'index',
-  'sponsors'
+  'sponsors',
+  'image',
 ]
 
 globals.availableColors = ['red', 'yellow', 'green', 'white', 'black']

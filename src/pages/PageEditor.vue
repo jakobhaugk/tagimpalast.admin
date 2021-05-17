@@ -75,12 +75,13 @@ import CustomInput from "../components/form/CustomInput";
 import ContentArticlePage from "../components/content/ContentArticlePage";
 import ContentIndexPage from "../components/content/ContentIndexPage";
 import ContentSponsorsPage from "../components/content/ContentSponsorsPage";
+import ContentImagePage from "../components/content/ContentImagePage";
 
 import globals from '../const'
 
 import http from "../util/http";
 export default {
-  components: { CustomSelect, CustomInput, ContentArticlePage, ContentIndexPage, ContentSponsorsPage },
+  components: { CustomSelect, CustomInput, ContentArticlePage, ContentIndexPage, ContentSponsorsPage, ContentImagePage },
   name: "PageEditor",
   data: () => ({
     ready: false,

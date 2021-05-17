@@ -18,6 +18,7 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Heading from "@tiptap/extension-heading";
+import Underline from "@tiptap/extension-underline";
 import TextEditorButtons from './TextEditorButtons.vue';
 
 
@@ -38,7 +39,7 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      extensions: [StarterKit, Document, Paragraph, Text, Heading],
+      extensions: [StarterKit, Document, Paragraph, Text, Heading, Underline],
       autofocus: true,
       editable: true,
       content: this.value,
