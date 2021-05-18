@@ -9,6 +9,7 @@
     <date-picker type="datetime" basic="datetime" v-model="value.countdownEnd" />
     </div>
   </div>
+  <custom-input label="Ticker Text" v-model="value.ticker"></custom-input>
 </div>
 </template>
 
@@ -21,7 +22,7 @@ import 'vue2-datepicker/index.css';
 export default {
   components: { CustomInput, TextEditor, DatePicker },
   props: {
-    value: { type: Object, default: { template: '', countdownEnd: Date.now() } },
+    value: { type: Object, default: { template: '', countdownEnd: Date.now(), ticker: '' } },
   },
   watch: {
     value: function() {
