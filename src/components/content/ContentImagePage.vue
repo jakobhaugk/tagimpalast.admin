@@ -19,7 +19,7 @@ import ImageUpload from "../form/ImageUpload.vue";
 export default {
   components: { CustomInput, TextEditor, ImageUpload },
   props: {
-    value: { type: Object },
+    value: { type: Object, default: { file: null, caption: ''} },
     showPreview: { type: Boolean, default: false }
   },
   data() {
@@ -51,5 +51,8 @@ export default {
   display: flex;
   align-items: center;
   column-gap: 2em;
+}
+img {
+  max-height: 200px;
 }
 </style>

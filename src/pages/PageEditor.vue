@@ -36,7 +36,7 @@
           />
         </div>
 
-        <div v-for="component, idx in page.components" :key="idx" class="box">
+        <div v-for="component, idx in page.components" :key="component._id" class="box">
           <div style="display: flex" class="is-justify-content-space-between">
             <h6 class="title is-6">{{ component.type }}</h6>
             <label class="checkbox">
@@ -53,13 +53,14 @@
             v-model="component.type"
           />
           <component
+            :key="component._id"
             :is="`content-${component.type}-page`"
-            :id="slug"
             v-model="component.data"
+            :value="component.data"
           ></component>
         </div>
 
-        <button @click="page.components.push(emptyComponent)" class="button is-outlined is-link">
+        <button @click="page.components.push(emptyComponent())" class="button is-outlined is-link">
           + Neuen Abschnitt hinzufügen
         </button>
       </div>
@@ -157,7 +158,7 @@ export default {
 
 <style scoped>
 .section {
-  height: 100%;
+  min-height: 100%;
 }
 .top {
   display: flex;

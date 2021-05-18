@@ -20,7 +20,7 @@ import ImageUpload from '../form/ImageUpload.vue'
 export default {
   components: { CustomInput, TextEditor, ImageUpload },
   props: {
-    value: { type: Object, default: { sponsors: []} },
+    value: { type: Object, default: { sponsors: [], heading: '', description: '' } },
   },
   watch: {
     value: function() {

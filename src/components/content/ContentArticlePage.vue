@@ -12,7 +12,7 @@ import CustomInput from '../form/CustomInput.vue'
 export default {
   components: { CustomInput, TextEditor },
   props: {
-    value: { type: Object },
+    value: { type: Object, default: { heading: '', html: '' } },
     id: String,
   },
   watch: {

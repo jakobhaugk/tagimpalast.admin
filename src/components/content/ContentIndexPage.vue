@@ -21,7 +21,7 @@ import 'vue2-datepicker/index.css';
 export default {
   components: { CustomInput, TextEditor, DatePicker },
   props: {
-    value: { type: Object },
+    value: { type: Object, default: { template: '', countdownEnd: Date.now() } },
   },
   watch: {
     value: function() {

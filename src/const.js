@@ -7,11 +7,12 @@ globals.emptyPage = {
   components: [],
 }
 
-globals.emptyComponent = {
+globals.emptyComponent = () => ({
+  _id: Date.now(),
   type: 'article',
   public: true,
   data: {}
-}
+})
 
 globals.availableComponents = [
   'article',
