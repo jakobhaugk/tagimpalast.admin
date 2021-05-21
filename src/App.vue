@@ -21,7 +21,7 @@
 
 <script>
 import http from "./util/http";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/TheSidebar";
 import Login from "./pages/Login";
 
 export default {

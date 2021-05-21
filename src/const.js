@@ -19,6 +19,8 @@ globals.availableComponents = [
   'index',
   'sponsors',
   'image',
+  'gallery',
+  'image-gallery'
 ]
 
 globals.availableColors = ['red', 'yellow', 'green', 'white', 'black']

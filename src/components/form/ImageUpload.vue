@@ -10,7 +10,7 @@
       id="file-input"
     >
     <span class="file-cta">
-      <span class="file-label">Bild auswählen</span>
+      <span class="file-label">{{ _label }}</span>
     </span>
 
     <div v-if="status" class="ml-3" :class="status === 'success' ? 'has-text-success' : 'has-text-danger'">
@@ -27,6 +27,12 @@ export default {
   name: "ImageUpload",
   props: {
     multiple: { type: Boolean, default: false },
+    label: String,
+  },
+  computed: {
+    _label() {
+      return this.label || `Bild${this.multiple ? 'er' : ''} auswählen`
+    }
   },
   data: () => ({
     status: null,

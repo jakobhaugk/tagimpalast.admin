@@ -1,6 +1,10 @@
 <template>
 <div>
   <custom-input label="Überschrift" v-model="value.heading" />
+  <label class="checkbox">
+    <input type="checkbox" v-model="value.indentFirstLine" value="true">
+    Erste Zeile einrücken
+  </label>
   <text-editor v-model="value.html" :id="id" />
 </div>
 </template>
@@ -12,7 +16,7 @@ import CustomInput from '../form/CustomInput.vue'
 export default {
   components: { CustomInput, TextEditor },
   props: {
-    value: { type: Object, default: { heading: '', html: '' } },
+    value: { type: Object, default: { heading: '', html: '', indentFirstLine: true } },
     id: String,
   },
   watch: {
