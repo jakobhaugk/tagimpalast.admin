@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tiptap/extension-link": "*",
     "@tiptap/extension-underline": "*",
     "@tiptap/starter-kit": "*",
     "@tiptap/vue-2": "*",

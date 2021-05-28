@@ -19,8 +19,8 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Heading from "@tiptap/extension-heading";
 import Underline from "@tiptap/extension-underline";
-import TextEditorButtons from './TextEditorButtons.vue';
-
+import Link from "@tiptap/extension-link";
+import TextEditorButtons from "./TextEditorButtons.vue";
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
   },
   props: {
     showHtml: { type: Boolean, default: false },
-    value: { type: String, default: '' },
+    value: { type: String, default: "" },
   },
   data() {
     return {
@@ -39,20 +39,27 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      extensions: [StarterKit, Document, Paragraph, Text, Heading, Underline],
+      extensions: [
+        StarterKit,
+        Document,
+        Paragraph,
+        Text,
+        Heading,
+        Underline,
+        Link.configure({ HTMLAttributes: { target: "_self" } }),
+      ],
       autofocus: true,
       editable: true,
       content: this.value,
     });
-    this.editor.on('update', () => {
-      this.$emit('input', this.editor.getHTML())
-    })
-    this.editor.commands.setContent(this.value)
+    this.editor.on("update", () => {
+      this.$emit("input", this.editor.getHTML());
+    });
+    this.editor.commands.setContent(this.value);
   },
 
   updated() {
-    
-      this.editor.commands.setContent(this.value, true)
+    this.editor.commands.setContent(this.value, true);
   },
 
   beforeDestroy() {
@@ -68,7 +75,7 @@ export default {
   display: block;
   max-width: 100%;
   min-width: 100%;
-  padding: calc(.75em - 1px);
+  padding: calc(0.75em - 1px);
   border: 1px solid;
 }
 </style>

@@ -36,9 +36,9 @@ export default {
     async init() {
       this.ready = false;
       const { data: { data } } = await http.get('/api/pages');
-      console.log(data);
       this.pages = data;
       this.ready = true;
+      this.$store.commit('setPages', data)
     }
   },
   async mounted() {
@@ -61,5 +61,6 @@ export default {
 .chat-btn {
   bottom: 3em;
 }
+
 
 </style>

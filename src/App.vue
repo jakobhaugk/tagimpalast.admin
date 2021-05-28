@@ -2,7 +2,10 @@
   <div id="app" class="container is-fullhd">
     <div v-if="ready" style="height: 100%">
       <div v-if="loggedIn" class="flex-container">
-        <div class="sidebar">
+        <button class="button is-small btn-toggle" @click="toggleMenuCollapse">
+          {{ menuCollapsed ? "Menü anzeigen" : "Menü einklappen" }}
+        </button>
+        <div class="sidebar" v-if="!menuCollapsed">
           <sidebar ref="sidebar"></sidebar>
         </div>
         <div class="content">
@@ -13,9 +16,7 @@
         <login @success="loggedIn = true"></login>
       </div>
     </div>
-    <div v-else>
-      Loading...
-    </div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -27,11 +28,13 @@ import Login from "./pages/Login";
 export default {
   name: "App",
   components: {
-    Sidebar, Login
+    Sidebar,
+    Login,
   },
   data: () => ({
     ready: false,
-    loggedIn: false
+    loggedIn: false,
+    menuCollapsed: false
   }),
   head: {
     link: [
@@ -42,23 +45,26 @@ export default {
     ],
   },
   async mounted() {
-    
     try {
-      const { data: { data }} = await http.get('/api/user')
-      this.loggedIn = (data === true);
+      const {
+        data: { data },
+      } = await http.get("/api/user");
+      this.loggedIn = data === true;
     } catch (e) {
-      this.loggedIn = false
+      this.loggedIn = false;
     }
 
     this.ready = true;
-
   },
   methods: {
     handleReload() {
-      console.log('reload')
-      this.$refs.sidebar.init()
+      console.log("reload");
+      this.$refs.sidebar.init();
+    },
+    toggleMenuCollapse() {
+      this.menuCollapsed = !this.menuCollapsed;
     }
-  }
+  },
 };
 </script>
 
@@ -81,9 +87,25 @@ body {
   background-color: #e4e4e4;
   box-shadow: #bdbdbd 0px 0px 15px;
   overflow: hidden;
+  z-index: 10;
 }
+@media screen and (max-width: 650px) {
+  .sidebar {
+    position: absolute;
+  }
+}
+
 .content {
   flex: 1;
   overflow: auto;
 }
+
+.btn-toggle {
+  position: absolute !important;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+}
+
+
 </style>

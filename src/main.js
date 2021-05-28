@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueHead from 'vue-head'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import VueSocketIO from 'vue-socket.io'
 import App from './App.vue'
 
@@ -16,6 +17,7 @@ const ioConnection = io(host, {
 
 Vue.use(VueHead)
 Vue.use(VueRouter)
+Vue.use(Vuex)
 Vue.use(new VueSocketIO({
   debug: !Vue.config.productionTip,
   connection: ioConnection,
@@ -36,7 +38,23 @@ const routes = [
 
 const router = new VueRouter({ routes })
 
+
+// vuex store
+const store = new Vuex.Store({
+  state: {
+    pages: []
+  },
+  mutations: {
+    setPages(state, pages) {
+      if (pages && pages.length > 0)
+        state.pages = pages
+    }
+  }
+})
+
+
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
