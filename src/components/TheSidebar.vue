@@ -12,9 +12,12 @@
       <router-link class="nav-item mt-5" to="/new">
         + Neue Seite hinzufügen
       </router-link>
-      <a :href="previewURL" target="_blank" class="preview-btn button is-link is-outlined">
+      <a :href="previewURL" target="_blank" class="bottom-btn button is-link is-outlined">
         Vorschau
       </a>
+      <router-link to="/chat" class="bottom-btn chat-btn button is-link is-outlined">
+        Chat
+      </router-link>
     </div>
     <div v-else>Loading...</div>
   </div>
@@ -49,9 +52,14 @@ export default {
 .nav-item {
   display: block;
 }
-.preview-btn {
+.bottom-btn {
   position: absolute !important;
   left: 0;
   bottom: 0;
 }
+
+.chat-btn {
+  bottom: 3em;
+}
+
 </style>

@@ -11,16 +11,15 @@
       >
         Bild löschen</button
       ><br />
-      <custom-input label="Titel" v-model="item.title" />
-      <custom-input label="Künstler:in" v-model="item.artist" />
-      <custom-select label="Größe des Vorschaubilds" v-model="item.size" :options="['default', 'small', 'medium', 'large']" />
-      <image-upload class="mb-2" :multiple="true" @success="(images) => setImages(itemIdx, images)" />
+      <custom-input label="Name" v-model="item.name" />
+      <custom-input label="Einbettungscode" v-model="item.videoEmbedding" />
+      <image-upload class="mb-2" @success="(images) => setImage(itemIdx, images)" />
       <div class="gallery-thumbs" style="flex-basis: 100%">
-        <img v-for="img, imgIdx in item.images" :key="imgIdx" :src="`${$host}/images/${img}`" @click="setFirstImage(itemIdx, imgIdx)" >
+        <img :src="`${$host}/images/${item.image}`" >
       </div>
       <text-editor v-model="item.description" />
     </div>
-    <button @click="addItem" class="button">+ Bild hinzufügen</button>
+    <button @click="addItem" class="button">+ Video hinzufügen</button>
   </div>
 </template>
 
@@ -49,24 +48,18 @@ export default {
       const value = this.value;
       this.value = {
         ...value,
-        galleryItems: [...(this.value.galleryItems || []), { images: [], size: 'default' }],
+        galleryItems: [...(this.value.galleryItems || []), { image: null }],
       };
     },
     removeItem(idx) {
       this.value.galleryItems.splice(idx, 1);
     },
-    setImages(idx, images) {
+    setImage(idx, images) {
+      const [image] = images;
       const value = this.value;
-      value.galleryItems[idx].images = images;
+      value.galleryItems[idx].image = image;
       this.value = { ...value };
     },
-    setFirstImage(itemIdx, imageIdx) {
-      const items = this.value.galleryItems;
-      const first = items[itemIdx].images[0];
-      items[itemIdx].images[0] = items[itemIdx].images[imageIdx];
-      items[itemIdx].images[imageIdx] = first;
-      this.value = { ...this.value, galleryItems: items }
-    }
   },
 };
 </script>

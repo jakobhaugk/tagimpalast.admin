@@ -20,7 +20,9 @@ globals.availableComponents = [
   'sponsors',
   'image',
   'gallery',
-  'image-gallery'
+  'image-gallery',
+  'video-gallery',
+  'livestream',
 ]
 
 globals.availableColors = ['red', 'yellow', 'green', 'white', 'black']
