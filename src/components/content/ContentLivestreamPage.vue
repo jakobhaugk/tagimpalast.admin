@@ -6,7 +6,7 @@
       <input type="checkbox" v-model="value.enableChat" value="true" />
       Chat aktivieren
     </label>
-    <custom-input v-if="value.enableChat" label="Chat Überschrift" v-model="value.streamID" />
+    <custom-input v-if="value.enableChat" label="Chat Überschrift" v-model="value.chatHeading" />
     <span>Text unter dem Livestream</span>
     <text-editor v-model="value.html" :v-html="id" />
   </div>
