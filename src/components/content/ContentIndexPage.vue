@@ -3,6 +3,9 @@
   <label>Template (Anzahl der Stunden durch '####' ersetzen)</label>
   <text-editor class="mb-3" v-model="value.template" />
 
+  <label>Info Text (darunter)</label>
+  <text-editor class="mb-3" v-model="value.infoText" />
+
   <div class="field">
     <label>Datum</label>
     <div class="control">
@@ -22,7 +25,7 @@ import 'vue2-datepicker/index.css';
 export default {
   components: { CustomInput, TextEditor, DatePicker },
   props: {
-    value: { type: Object, default: { template: '', countdownEnd: Date.now(), ticker: '' } },
+    value: { type: Object, default: { template: '', countdownEnd: Date.now(), ticker: '', infoText: '' } },
   },
   watch: {
     value: function() {
