@@ -1,6 +1,6 @@
 <template>
   <div style="dispay: flex">
-    <custom-input label="Überschrift" v-model="value.heading" />
+    <text-editor label="Überschrift" v-model="value.heading" />
     <custom-input label="Stream ID" v-model="value.streamID" />
     <label class="checkbox">
       <input type="checkbox" v-model="value.enableChat" value="true" />
