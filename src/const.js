@@ -23,6 +23,7 @@ globals.availableComponents = [
   'image-gallery',
   'video-gallery',
   'livestream',
+  'video',
 ]
 
 globals.availableColors = ['red', 'yellow', 'green', 'white', 'black']

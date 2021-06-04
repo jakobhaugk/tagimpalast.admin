@@ -80,12 +80,13 @@ import ContentImagePage from "../components/content/ContentImagePage";
 import ContentImageGalleryPage from "../components/content/ContentImageGalleryPage";
 import ContentVideoGalleryPage from "../components/content/ContentVideoGalleryPage";
 import ContentLivestreamPage from "../components/content/ContentLivestreamPage";
+import ContentVideoPage from "../components/content/ContentVideoPage";
 
 import globals from '../const'
 
 import http from "../util/http";
 export default {
-  components: { ContentLivestreamPage, ContentVideoGalleryPage, ContentImageGalleryPage, CustomSelect, CustomInput, ContentArticlePage, ContentIndexPage, ContentSponsorsPage, ContentImagePage },
+  components: { ContentVideoPage, ContentLivestreamPage, ContentVideoGalleryPage, ContentImageGalleryPage, CustomSelect, CustomInput, ContentArticlePage, ContentIndexPage, ContentSponsorsPage, ContentImagePage },
   name: "PageEditor",
   data: () => ({
     ready: false,
